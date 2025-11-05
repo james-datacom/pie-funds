@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PieFunds.Domain", "PieFunds
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PieFunds.Infrastructure", "PieFunds.Infrastructure\PieFunds.Infrastructure.csproj", "{8466AACE-53DF-442E-98A6-DFE4189CCB7F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PieFunds.Tests", "PieFunds.Tests\PieFunds.Tests.csproj", "{50B5691D-4BFE-4AC2-B6C2-1727ACA49C4E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{8466AACE-53DF-442E-98A6-DFE4189CCB7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8466AACE-53DF-442E-98A6-DFE4189CCB7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8466AACE-53DF-442E-98A6-DFE4189CCB7F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50B5691D-4BFE-4AC2-B6C2-1727ACA49C4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50B5691D-4BFE-4AC2-B6C2-1727ACA49C4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50B5691D-4BFE-4AC2-B6C2-1727ACA49C4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50B5691D-4BFE-4AC2-B6C2-1727ACA49C4E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
