@@ -1,7 +1,6 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using PieFunds.Application.UserFeature.Queries;
+using PieFunds.Application.Features.Users.Queries.GetUserByEmail;
 
 namespace PieFunds.Api.Controllers
 {
@@ -21,7 +20,8 @@ namespace PieFunds.Api.Controllers
             if (result == null)
             {
                 return NotFound();
-            }   
+            }
+            
             return Ok(result);
         }
     }

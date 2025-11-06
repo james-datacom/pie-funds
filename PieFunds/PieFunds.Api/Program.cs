@@ -1,5 +1,5 @@
+using PieFunds.Application.Features.Users.Queries.GetUserByEmail;
 using PieFunds.Application.Interfaces;
-using PieFunds.Application.UserFeature.Queries;
 using PieFunds.Infrastructure.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);

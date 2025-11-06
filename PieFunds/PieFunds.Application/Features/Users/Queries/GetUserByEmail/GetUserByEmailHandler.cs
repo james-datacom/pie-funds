@@ -1,9 +1,8 @@
 ﻿using MediatR;
+using PieFunds.Application.Features.Users.Dtos;
 using PieFunds.Application.Interfaces;
-using PieFunds.Application.UserFeature.Dtos;
-using PieFunds.Application.UserFeature.Queries;
 
-namespace PieFunds.Application.UserFeature.Handlers
+namespace PieFunds.Application.Features.Users.Queries.GetUserByEmail
 {
     public class GetUserByEmailHandler : IRequestHandler<GetUserByEmailQuery, UserDto?>
     {
@@ -25,5 +24,8 @@ namespace PieFunds.Application.UserFeature.Handlers
 
             return new UserDto(user.Id, user.Name, user.Email);
         }
+
+
     }
+
 }
