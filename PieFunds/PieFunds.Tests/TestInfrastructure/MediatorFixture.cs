@@ -2,8 +2,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
+using PieFunds.Application.Features.Users.Queries.GetUserByEmail;
 using PieFunds.Application.Interfaces;
-using PieFunds.Application.UserFeature.Queries;
 using PieFunds.Infrastructure.Persistence;
 
 namespace PieFunds.Tests.TestInfrastructure

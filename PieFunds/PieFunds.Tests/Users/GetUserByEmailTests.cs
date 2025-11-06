@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MediatR;
-using Microsoft.Extensions.Logging;
-using PieFunds.Application.UserFeature.Queries;
+﻿using MediatR;
+using PieFunds.Application.Features.Users.Queries.GetUserByEmail;
 using PieFunds.Tests.TestInfrastructure;
 
 namespace PieFunds.Tests.Users
