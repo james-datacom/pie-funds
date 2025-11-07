@@ -21,5 +21,15 @@ namespace PieFunds.Infrastructure.Persistence
             var user = _users.FirstOrDefault(x => x.Email == email);
             return Task.FromResult<User?>(user);
         }
+
+        public Task AddAsync(User user, CancellationToken cancellationToken = default)
+        {
+            _users.Add(user);
+            return Task.CompletedTask;
+        }
+        public void Clear()
+        {
+            _users.Clear();
+        }
     }
 }

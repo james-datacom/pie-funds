@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using PieFunds.Application.Features.Users.Queries.GetUserByEmail;
 using PieFunds.Application.Interfaces;
+using PieFunds.Domain.Entities;
 using PieFunds.Infrastructure.Persistence;
 
 namespace PieFunds.Tests.TestInfrastructure
@@ -35,9 +36,12 @@ namespace PieFunds.Tests.TestInfrastructure
 
         public IMediator Mediator { get; }
 
+        public IServiceProvider ServiceProvider => _provider;
+
         public void Dispose()
         {
             _provider.Dispose();
         }
+
     }
 }
