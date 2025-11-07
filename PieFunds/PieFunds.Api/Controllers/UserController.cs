@@ -34,15 +34,11 @@ namespace PieFunds.Api.Controllers
         public async Task<IActionResult> CreateUser([FromBody] CreateUserCommand command)
         {
             var result = await mediator.Send(command);
-
-            if (result != null && result.Success && result.User?.Email != null)
-                return CreatedAtRoute("GetUserByEmail", new { email = result.User.Email }, result.User);
-
-            var errorMessage = "User could not be created.";
-            if (result != null && !string.IsNullOrWhiteSpace(result.Message))
-                errorMessage = result.Message;
-
-            return BadRequest(errorMessage);
+            if (result == null || !result.Success) {
+                string message = result?.Message != null ? "Email already exists." : "User could not be created.";
+                return BadRequest(message);
+            }
+            return Ok(result);
         }
     }
 }
