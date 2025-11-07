@@ -24,7 +24,7 @@ namespace PieFunds.Tests.Users
 
             // Assert
             Assert.NotNull(result);
-            Assert.Equal(existingUserEmail, result.Email);
+            Assert.Equal(existingUserEmail, result.Data?.Email);
         }
 
         [Fact]

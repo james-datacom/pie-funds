@@ -1,5 +1,6 @@
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using PieFunds.Application.Common.Models;
 using PieFunds.Application.Features.Users.Queries.GetUserByEmail;
 using PieFunds.Application.Interfaces;
 using PieFunds.Infrastructure.Persistence;
@@ -29,6 +30,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseHttpsRedirection();
 
