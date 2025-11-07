@@ -47,7 +47,7 @@ namespace PieFunds.Tests.Users
 
             var getResult = await _mediator.Send(new GetUserByEmailQuery(email));
             Assert.NotNull(getResult);
-            Assert.Equal(name, getResult.Name);
+            Assert.Equal(name, getResult.Data?.Name);
         }
 
         [Fact]
