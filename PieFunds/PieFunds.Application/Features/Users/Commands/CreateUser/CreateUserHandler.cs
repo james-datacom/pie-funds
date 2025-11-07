@@ -1,13 +1,11 @@
 using MediatR;
+using PieFunds.Application.Features.Users.Dtos;
 using PieFunds.Application.Interfaces;
-using PieFunds.Application.UserFeature.Commands;
-using PieFunds.Application.UserFeature.Dtos;
 using PieFunds.Domain.Entities;
-using PieFunds.Application.UserFeature.Exceptions;
 
-namespace PieFunds.Application.UserFeature.Handlers
+namespace PieFunds.Application.Features.Users.Commands.CreateUser
 {
-    public class CreateUserHandler : IRequestHandler<CreateUserCommand, UserDto>
+    public class CreateUserHandler : IRequestHandler<CreateUserCommand, CreateUserResult>
     {
         private readonly IUserRepository _userRepository;
 
@@ -16,12 +14,12 @@ namespace PieFunds.Application.UserFeature.Handlers
             _userRepository = userRepository;
         }
 
-        public async Task<UserDto> Handle(CreateUserCommand request, CancellationToken cancellationToken)
+        public async Task<CreateUserResult> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
             var existingUser = await _userRepository.GetByEmailAsync(request.Email, cancellationToken);
             if (existingUser != null)
             {
-                throw new DuplicateEmailException(request.Email);
+                return new CreateUserResult(false, "Email already registered.");
             }
 
             var user = new User
@@ -33,7 +31,8 @@ namespace PieFunds.Application.UserFeature.Handlers
 
             await _userRepository.AddAsync(user, cancellationToken);
 
-            return new UserDto(user.Id, user.Name, user.Email);
+            var userDto = new UserDto(user.Id, user.Name, user.Email);
+            return new CreateUserResult(true, "User created successfully.", userDto);
         }
     }
 }

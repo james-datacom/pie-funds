@@ -27,5 +27,9 @@ namespace PieFunds.Infrastructure.Persistence
             _users.Add(user);
             return Task.CompletedTask;
         }
+        public void Clear()
+        {
+            _users.Clear();
+        }
     }
 }

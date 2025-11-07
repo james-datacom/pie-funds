@@ -1,5 +1,7 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using PieFunds.Application.Features.Users.Queries.GetUserByEmail;
 using PieFunds.Application.Interfaces;
-using PieFunds.Application.UserFeature.Queries;
 using PieFunds.Infrastructure.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,6 +9,9 @@ var builder = WebApplication.CreateBuilder(args);
 // MediatR registration: scan Application assembl
 builder.Services.AddMediatR(cfg => 
     cfg.RegisterServicesFromAssembly(typeof(GetUserByEmailQuery).Assembly));
+
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddValidatorsFromAssemblyContaining<GetUserByEmailQueryValidator>();
 
 // Repos / Infrastructure
 builder.Services.AddSingleton<IUserRepository, InMemoryUserRepository>();

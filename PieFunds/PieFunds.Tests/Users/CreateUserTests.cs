@@ -1,22 +1,33 @@
 using System;
 using System.Threading.Tasks;
 using MediatR;
-using PieFunds.Application.UserFeature.Commands;
-using PieFunds.Application.UserFeature.Queries;
+using Microsoft.Extensions.DependencyInjection;
+using PieFunds.Application.Features.Users.Commands.CreateUser;
+using PieFunds.Application.Features.Users.Queries.GetUserByEmail;
+using PieFunds.Application.Interfaces;
+using PieFunds.Infrastructure.Persistence;
 using PieFunds.Tests.TestInfrastructure;
-using PieFunds.Application.UserFeature.Exceptions;
-using Xunit;
 
 namespace PieFunds.Tests.Users
 {
-    public class CreateUserTests : IClassFixture<MediatorFixture>
+    public class CreateUserTests : IClassFixture<MediatorFixture>, IAsyncLifetime
     {
         private readonly IMediator _mediator;
+        private readonly MediatorFixture _fixture;
 
         public CreateUserTests(MediatorFixture fixture)
         {
+            _fixture = fixture;
             _mediator = fixture.Mediator;
         }
+
+        public async Task InitializeAsync()
+        {
+            var repo = (InMemoryUserRepository)_fixture.ServiceProvider.GetRequiredService<IUserRepository>();
+            repo.Clear();
+            await Task.CompletedTask;
+        }
+        public Task DisposeAsync() => Task.CompletedTask;
 
         [Fact]
         public async Task CreateUser_SuccessfullyCreatesUser()
@@ -28,8 +39,11 @@ namespace PieFunds.Tests.Users
             var result = await _mediator.Send(command);
 
             Assert.NotNull(result);
-            Assert.Equal(name, result.Name);
-            Assert.Equal(email, result.Email);
+            Assert.True(result.Success);
+            Assert.Equal("User created successfully.", result.Message);
+            Assert.NotNull(result.User);
+            Assert.Equal(name, result.User.Name);
+            Assert.Equal(email, result.User.Email);
 
             var getResult = await _mediator.Send(new GetUserByEmailQuery(email));
             Assert.NotNull(getResult);
@@ -37,16 +51,21 @@ namespace PieFunds.Tests.Users
         }
 
         [Fact]
-        public async Task CreateUser_ThrowsDuplicateEmailException_WhenEmailExists()
+        public async Task CreateUser_ReturnsFailure_WhenEmailExists()
         {
             var name = "John Doe";
             var email = "johndoe@email.com";
             var command = new CreateUserCommand(name, email);
 
-            await Assert.ThrowsAsync<DuplicateEmailException>(async () =>
-            {
-                await _mediator.Send(command);
-            });
+            // First creation should succeed
+            var firstResult = await _mediator.Send(command);
+            Assert.True(firstResult.Success);
+
+            // Second creation should fail
+            var secondResult = await _mediator.Send(command);
+            Assert.False(secondResult.Success);
+            Assert.Equal("Email already registered.", secondResult.Message);
+            Assert.Null(secondResult.User);
         }
     }
 }
