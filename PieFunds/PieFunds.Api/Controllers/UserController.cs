@@ -19,11 +19,6 @@ namespace PieFunds.Api.Controllers
         public async Task<IActionResult> GetUserByEmailAsync(string email)
         {
             var result = await mediator.Send(new GetUserByEmailQuery(email));
-            if (result == null)
-            {
-                return NotFound();
-            }
-            
             return Ok(result);
         }
 
